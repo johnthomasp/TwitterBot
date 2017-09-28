@@ -4,28 +4,22 @@ var T = new Twit(config);
 
 var twits =
     {
-        tweetit: function ()
-        {
-            var random = Math.floor(Math.random()*100);
-            var tweet = {
-                status: random + "." + " hello world! from a twit bot" 
-            }
-            console.log(tweet);
-            T.post('statuses/update', tweet , getTweetData);
-            function getTweetData(err, data, response){
-                if(err) {
-                    console.log(err.name + ': ' + err.message);;
-                } 
-                else {
-                    console.log("Tweeted");
-                }
-            }
-        },
-        
+        //Post a tweet
         tweetit: function (message)
         {
-            var tweet = {
+            var tweet;
+            if (message === undefined)
+            {
+                var random = Math.floor(Math.random()*100);
+                tweet = {
+                    status: random + "." + " Hi from a twit bot" 
+                }
+            }
+            else
+            {
+                tweet = {
                 status: message 
+                }
             }
             console.log(tweet);
             
@@ -40,6 +34,7 @@ var twits =
             }
         },
 
+        //Get top 5 tweets that has NFL as keywordreply when someone follows you
         gettweets: function()
         {
             var params = { 
@@ -57,6 +52,7 @@ var twits =
             T.get('search/tweets', params , getData);
         },
         
+        //reply when someone follows you
         replytweets:function()
         {
             //Setup a user
@@ -66,7 +62,7 @@ var twits =
                 console.log('followed');
                 var name = eventData.source.name;
                 var screenName = eventData.source.screen_name;
-                var msg ='@' + screenName + ' Cool';
+                var msg ='@' + screenName + ' Jhakaas';
                 twits.tweetit(msg);
             }
         }
